@@ -9,6 +9,6 @@ help = Command(name= 'help',
 command_registry.register(help)
 
 clear_logs = Command(name='clear_logs',
-                    description='Clears a log file.',
+                    description='Clears the given log file.',
                     function=funcs.clear_logs_function)
 command_registry.register(clear_logs)
