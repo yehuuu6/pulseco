@@ -1,0 +1,14 @@
+{
+    "host": "127.0.0.1",
+    "port": 7030,
+    "id": "selftos",
+    "max-users": 10,
+    "name": "Official Chat Room For Selftos",
+    "description": "This is a chat room for my friends",
+    "public": true,
+    "logging": "commands", // Valid types: "commands", "messages", "all"
+    "enable-plugins": false,
+    "render-muted-messages": false,
+    "render-executed-commands": false,
+    "lang": "tr"
+}
