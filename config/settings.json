@@ -1,14 +1,14 @@
 {
     "host": "127.0.0.1",
     "port": 7030,
-    "id": "selftos",
-    "max-users": 10,
-    "name": "Official Chat Room For Selftos",
-    "description": "This is a chat room for my friends",
+    "id": "pulseco",
+    "max_users": 10,
+    "name": "Official Chat Room For Pulseco",
+    "description": "This is a chat room for Pulseco. You can chat with other users here.",
     "public": true,
-    "logging": "commands", // Valid types: "commands", "messages", "all"
-    "enable-plugins": false,
-    "render-muted-messages": false,
-    "render-executed-commands": false,
+    "logging": "commands",
+    "enable_plugins": true,
+    "render_muted_messages": true,
+    "render_executed_commands": true,
     "lang": "tr"
 }
