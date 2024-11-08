@@ -1,4 +1,4 @@
-from packages.config_loader import load_config
+from packages.loaders.config_loader import load_config
 
 def main() -> None:
     load_config()
