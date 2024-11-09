@@ -1,6 +1,6 @@
-from Pulseco.Console.classes import Command
-from Pulseco.Console.command_registery import command_registry
-import Pulseco.Console.functions as funcs
+from pulseco.console.classes import Command
+from pulseco.console.command_registery import command_registry
+import pulseco.console.functions as funcs
 
 def init_module():
     """

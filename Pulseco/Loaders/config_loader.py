@@ -3,7 +3,7 @@ Provides config loader and validation functionality for the pulseco app.
 """
 
 from pydantic import BaseModel, PositiveInt
-from Pulseco.utils import printb
+from pulseco.utils import printb
 
 class Config(BaseModel):
     host: str

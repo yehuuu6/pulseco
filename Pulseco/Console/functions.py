@@ -1,8 +1,8 @@
 """
 Provides functions for the console package.
 """
-from Pulseco.utils import printb
-from Pulseco.Console.command_registery import command_registry
+from pulseco.utils import printb
+from pulseco.console.command_registery import command_registry
 from typing import Any
 
 def help_function() -> None:

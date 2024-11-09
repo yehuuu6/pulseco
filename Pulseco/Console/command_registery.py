@@ -1,5 +1,5 @@
 from typing import List
-from Pulseco.Console.commands import Command
+from pulseco.console.commands import Command
 
 class CommandRegistry:
     """

@@ -1,4 +1,4 @@
-from Pulseco.Loaders.config_loader import load_config
+from pulseco.loaders.config_loader import load_config
 
 def main() -> None:
     load_config()
