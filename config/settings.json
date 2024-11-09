@@ -4,11 +4,11 @@
     "id": "pulseco",
     "max_users": 10,
     "name": "Official Chat Room For Pulseco",
-    "description": "This is a chat room for Pulseco. You can chat with other users here.",
+    "description": "This is the official chat room for Pulseco. Enjoy your stay!",
     "public": true,
     "logging": "commands",
-    "enable_plugins": true,
-    "render_muted_messages": true,
-    "render_executed_commands": true,
-    "lang": "tr"
+    "enable_plugins": false,
+    "render_muted_messages": false,
+    "render_executed_commands": false,
+    "lang": "en"
 }
