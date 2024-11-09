@@ -3,25 +3,26 @@ The command line tool named 'pulse' to manage your pulseco chat server.
 """
 
 from sys import argv
-from packages.console.commands import help, clear_logs
+import packages.console.commands as PulseConsole
+from packages.console.command_registery import command_registry
 
 def main() -> None:
     """
     The main function of the pulseco command line tool.
     """
+    PulseConsole.init_module() # Initialize the console package to prevent circular imports error.
+
     if len(argv) == 1:
         print('Usage: pulse.py <command> [args]')
         print('Use "python pulse.py help" for help.')
         return
-    command = argv[1]
     
-    if command == 'help':
-        help.execute()
-    elif command == 'clear_logs':
-        if len(argv) == 3:
-            clear_logs.execute(argv[2])
-        else:
-            print('Usage: python pulse.py clear_logs <log_file_name>')
+    command = argv[1]
+    # Get all the commands from the command registry and store them in a dictionary.
+    commands = {cmd.name: cmd for cmd in command_registry.get_commands()}
+
+    if command in commands:
+        commands[command].execute(*argv[2:])
     else:
         print(f'Unknown command: {command}')
         print('Use "python pulse.py help" for help.')
