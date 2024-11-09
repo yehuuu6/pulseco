@@ -12,6 +12,12 @@ def help_function() -> None:
         print(f'{command.name}: {command.description}')
 
 def clear_logs_function(file_name: str) -> None:
+    VALID_LOGS = ['chat.log', 'commands.log', 'server.log']
+
+    if file_name not in VALID_LOGS:
+        printb(f'Invalid log file: {file_name}', log=True)
+        return
+
     try:
         printb(f'Clearing "{file_name}"...', log=True)
         # Check if the file exists
@@ -28,7 +34,7 @@ def reset_config_function() -> None:
         printb('Config reset aborted.', log=True)
         return
     printb('Resetting config...', log=True)
-    from pulseco.loaders.config_loader import use_default_config
+    from pulseco.loaders.config_loader import use_default_config # Dynamic import
     use_default_config()
     printb('Config reset successfully.', log=True)
 
