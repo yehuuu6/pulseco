@@ -1,16 +1,16 @@
 """
-The command line tool named 'pulse' to manage your pulseco chat server.
+The command line tool named 'Pulse' to manage your pulseco chat server.
 """
 
 from sys import argv
-import packages.console.commands as PulseConsole
-from packages.console.command_registery import command_registry
+import Pulseco.Console.commands as Pulse
+from Pulseco.Console.command_registery import command_registry
 
 def main() -> None:
     """
     The main function of the pulseco command line tool.
     """
-    PulseConsole.init_module() # Initialize the console package to prevent circular imports error.
+    Pulse.init_module() # Initialize the console package to prevent circular imports error.
 
     if len(argv) == 1:
         print('Usage: pulse.py <command> [args]')

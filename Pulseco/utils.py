@@ -2,7 +2,7 @@
 Provides utility functions for the pulseco app.
 """
 
-from packages.log_manager import main_logger
+from Pulseco.log_manager import main_logger
 
 def printb(text: str, log: bool = False) -> None:
     """
