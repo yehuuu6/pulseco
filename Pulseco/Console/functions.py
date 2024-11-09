@@ -2,7 +2,7 @@
 Provides functions for the console package.
 """
 from pulseco.utils import printb
-from pulseco.console.command_registery import command_registry
+from pulseco.console.command_registry import command_registry
 from typing import Any
 
 def help_function() -> None:
@@ -21,6 +21,16 @@ def clear_logs_function(file_name: str) -> None:
         printb(f'{file_name} cleared successfully.', log=True)
     except Exception as e:
         printb(f'Failed to clear given log file: {e}', log=True)
+    
+def reset_config_function() -> None:
+    confirmation: str = input('Are you sure you want to reset the config? (y/n): ')
+    if confirmation.lower() != 'y':
+        printb('Config reset aborted.', log=True)
+        return
+    printb('Resetting config...', log=True)
+    from pulseco.loaders.config_loader import use_default_config
+    use_default_config()
+    printb('Config reset successfully.', log=True)
 
 def test_command_function(arg1: Any, arg2: Any) -> None:
     args = [arg1, arg2]
