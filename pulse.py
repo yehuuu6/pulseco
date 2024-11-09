@@ -4,7 +4,7 @@ The command line tool named 'Pulse' to manage your pulseco chat server.
 
 from sys import argv
 import pulseco.console.commands as Pulse
-from pulseco.console.command_registery import command_registry
+from pulseco.console.command_registry import command_registry
 
 def main() -> None:
     """

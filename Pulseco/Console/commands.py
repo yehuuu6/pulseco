@@ -1,5 +1,5 @@
 from pulseco.console.classes import Command
-from pulseco.console.command_registery import command_registry
+from pulseco.console.command_registry import command_registry
 import pulseco.console.functions as funcs
 
 def init_module():
@@ -20,6 +20,12 @@ clear_logs = Command(name='clear_logs',
                     usage='Usage: python pulse.py clear_logs <log_file_name>',
                     function=funcs.clear_logs_function)
 command_registry.register(clear_logs)
+
+reset_config = Command(name='reset_config',
+                    description='Resets the config file to the default settings.',
+                    usage='Usage: python pulse.py reset_config',
+                    function=funcs.reset_config_function)
+command_registry.register(reset_config)
 
 test_command = Command(name='test_command',
                     description='This is a test command.',
