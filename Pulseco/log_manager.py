@@ -9,8 +9,12 @@ Provides logging functionality for the pulseco app.
 # If logs directory does not exist, create it
 if not path.exists('logs'):
     print('Creating logs directory...')
-    mkdir('logs')
-    print('Logs directory created.')
+    try:
+        mkdir('logs')
+        print('Logs directory created.')
+    except Exception as e:
+        print(f'Failed to create logs directory: {e}')
+        exit(1)
 
 # List of log files
 log_files: List[str] = ['chat.log', 'commands.log', 'server.log']
