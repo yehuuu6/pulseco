@@ -1,2 +1,4 @@
 pydantic
 prompt_toolkit
+pytest
+pytest-cov
