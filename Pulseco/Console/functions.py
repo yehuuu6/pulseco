@@ -41,3 +41,4 @@ def reset_config_function() -> None:
 def test_command_function(arg1: Any, arg2: Any) -> None:
     args = [arg1, arg2]
     print(f'Test command executed with args: {args}')
+    command_registry.reset_instance() # Reset the singleton instance for testing purposes
