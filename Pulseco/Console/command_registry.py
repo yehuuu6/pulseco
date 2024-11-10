@@ -37,7 +37,6 @@ class CommandRegistry:
 
         # Check if the method is called from a unit test where the file name starts with "test_"
         if not os.path.basename(inspect.stack()[1].filename).startswith("test_"):
-            print("BURAYA BAK BURAYA -> " + inspect.stack()[1].filename)
             raise RuntimeError(
                 "This method is only allowed to be called from unit tests."
             )
