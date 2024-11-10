@@ -18,8 +18,9 @@ DEFAULT_CONFIG: ServerConfig = ServerConfig(
     enable_plugins=False,
     render_muted_messages=False,
     render_executed_commands=False,
-    lang="en"
+    lang="en",
 )
+
 
 def use_default_config() -> ServerConfig:
     """
@@ -37,6 +38,7 @@ def use_default_config() -> ServerConfig:
     with open("config/settings.json", "w") as f:
         f.write(DEFAULT_CONFIG.model_dump_json(indent=4))
     return DEFAULT_CONFIG
+
 
 def load_config() -> ServerConfig:
     """
