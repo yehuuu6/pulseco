@@ -6,16 +6,16 @@ from pulseco.console.command_registry import command_registry
 from typing import Any
 
 def help_function() -> None:
-    print('Usage: python pulse.py <command> [args]')
-    print('Commands:')
+    printb('Usage: python pulse.py <command> [args]')
+    printb('Commands:')
     for command in command_registry.get_commands():
-        print(f'{command.name}: {command.description}')
+        printb(f'{command.name}: {command.description}')
 
 def clear_logs_function(file_name: str) -> None:
     VALID_LOGS = ['chat.log', 'commands.log', 'server.log']
 
     if file_name not in VALID_LOGS:
-        printb(f'Invalid log file: {file_name}', log=True)
+        printb(f'Invalid log file to clear: {file_name}', log=True)
         return
 
     try:
