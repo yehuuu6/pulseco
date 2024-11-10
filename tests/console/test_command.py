@@ -1,10 +1,18 @@
 from pulseco.console.classes import Command
 from io import StringIO
 from contextlib import redirect_stdout
+import pulseco.console.commands as Pulse
 
 
 def mock_function():
     print("Test command executed.")
+
+
+def test_command_module_init():
+    """
+    Test the initialization of the Command module.
+    """
+    Pulse.init_module()
 
 
 def test_command_init():
