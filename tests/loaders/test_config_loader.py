@@ -1,6 +1,11 @@
 import pytest
 import os
-from pulseco.loaders.config_loader import load_config, use_default_config, DEFAULT_CONFIG
+from pulseco.loaders.config_loader import (
+    load_config,
+    use_default_config,
+    DEFAULT_CONFIG,
+)
+
 
 @pytest.fixture(autouse=True)
 def setup_and_teardown():
@@ -19,16 +24,19 @@ def setup_and_teardown():
     if os.path.exists("config"):
         os.rmdir("config")
 
+
 def test_use_default_config_creates_config_directory():
     config = use_default_config()
     assert os.path.exists("config")
     assert os.path.exists("config/settings.json")
     assert config == DEFAULT_CONFIG
 
+
 def test_load_config_uses_default_when_no_config_file():
     config = load_config()
     assert config == DEFAULT_CONFIG
     assert os.path.exists("config/settings.json")
+
 
 def test_load_config_loads_existing_config():
     os.makedirs("config", exist_ok=True)
@@ -36,6 +44,7 @@ def test_load_config_loads_existing_config():
         f.write(DEFAULT_CONFIG.model_dump_json(indent=4))
     config = load_config()
     assert config == DEFAULT_CONFIG
+
 
 def test_load_config_invalid_json():
     os.makedirs("config", exist_ok=True)
