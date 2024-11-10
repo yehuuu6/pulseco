@@ -1,11 +1,14 @@
 from typing import List
 from pulseco.console.commands import Command
 import inspect
+import os
+
 
 class CommandRegistry:
     """
     Singleton class that holds all the commands that can be executed in the pulse console.
     """
+
     _instance = None
     _commands: List[Command] = []
 
@@ -23,7 +26,7 @@ class CommandRegistry:
 
     def get_commands(self) -> List[Command]:
         return self._commands
-    
+
     def reset_instance(self) -> None:
         """
         Reset the singleton instance of the CommandRegistry class.
@@ -31,13 +34,17 @@ class CommandRegistry:
         It isolates the tests from each other and the application itself.
         DO NOT USE IN PRODUCTION CODE.
         """
-        
-        # Check if the method is called from a test context
-        if not any('test' in frame.filename for frame in inspect.stack()):
-            raise RuntimeError("reset_instance can only be called from a test context.")
-        
+
+        # Check if the method is called from a unit test where the file name starts with "test_"
+        if not os.path.basename(inspect.stack()[1].filename).startswith("test_"):
+            print("BURAYA BAK BURAYA -> " + inspect.stack()[1].filename)
+            raise RuntimeError(
+                "This method is only allowed to be called from unit tests."
+            )
+
         self._instance = None
         self._commands = []
+
 
 # Create a singleton instance
 command_registry = CommandRegistry()
