@@ -1,5 +1,6 @@
 from typing import List
 from pulseco.console.commands import Command
+import inspect
 
 class CommandRegistry:
     """
@@ -16,10 +17,27 @@ class CommandRegistry:
         return cls._instance
 
     def register(self, command: Command):
+        if command in self._commands:
+            return
         self._commands.append(command)
 
     def get_commands(self) -> List[Command]:
         return self._commands
+    
+    def reset_instance(self) -> None:
+        """
+        Reset the singleton instance of the CommandRegistry class.
+        Created for unit testing.
+        It isolates the tests from each other and the application itself.
+        DO NOT USE IN PRODUCTION CODE.
+        """
+        
+        # Check if the method is called from a test context
+        if not any('test' in frame.filename for frame in inspect.stack()):
+            raise RuntimeError("reset_instance can only be called from a test context.")
+        
+        self._instance = None
+        self._commands = []
 
 # Create a singleton instance
 command_registry = CommandRegistry()
