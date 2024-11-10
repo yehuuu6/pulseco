@@ -33,7 +33,7 @@ def use_default_config() -> ServerConfig:
             printb("Using default config from memory instead...", log=True)
             return DEFAULT_CONFIG
 
-    printb("Using default config instead...", log=True)
+    printb("Using default config...", log=True)
     with open("config/settings.json", "w") as f:
         f.write(DEFAULT_CONFIG.model_dump_json(indent=4))
     return DEFAULT_CONFIG
