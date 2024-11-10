@@ -1,1 +1,2 @@
 pydantic
+prompt_toolkit
