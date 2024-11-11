@@ -1,4 +1,4 @@
-from os import mkdir, path
+import os
 from typing import List
 from logging import getLogger, Logger, basicConfig, INFO
 
@@ -7,10 +7,10 @@ Provides logging functionality for the pulseco app.
 """
 
 # If logs directory does not exist, create it
-if not path.exists("logs"):
+if not os.path.exists("logs"):
     print("Creating logs directory...")
     try:
-        mkdir("logs")
+        os.mkdir("logs")
         print("Logs directory created.")
     except Exception as e:
         print(f"Failed to create logs directory: {e}")
@@ -21,7 +21,7 @@ log_files: List[str] = ["chat.log", "commands.log", "server.log"]
 
 # Create log files if they don't exist
 for log_file in log_files:
-    if not path.exists(f"logs/{log_file}"):
+    if not os.path.exists(f"logs/{log_file}"):
         print(f"Creating {log_file}...")
         with open(f"logs/{log_file}", "w") as f:
             f.write("")
