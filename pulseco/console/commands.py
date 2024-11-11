@@ -1,13 +1,21 @@
+"""
+Provides built-in commands for the Pulse command line tool.
+"""
+
 from pulseco.console.classes import Command
 from pulseco.console.command_registry import command_registry
+from pulseco.loaders.custom_cmd_loader import load_commands
 import pulseco.console.functions as funcs
 
 
 def init_module():
     """
-    Only exists to prevent circular imports error.
+    Initializes the commands module by loading all the custom commands.
     """
-    pass
+    commands = load_commands()
+    for command_name, command_module in commands.items():
+        command = getattr(command_module, command_name)
+        command_registry.register(command)
 
 
 # Create commands
@@ -42,3 +50,11 @@ test_command = Command(
     function=funcs.test_command_function,
 )
 command_registry.register(test_command)
+
+make = Command(
+    name="make",
+    description="Creates the given component like a new command for the Pulse command line tool.",
+    usage="Usage: python pulse.py make <component> <name>",
+    function=funcs.make_function,
+)
+command_registry.register(make)
