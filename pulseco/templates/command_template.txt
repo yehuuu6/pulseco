@@ -1,0 +1,14 @@
+from pulseco.console.classes import Command
+
+
+# Create the function for the new command.
+def ${command_name}_function() -> None:
+    print("This is the ${command_name} command.")
+
+# Create the new command instance.
+${command_name} = Command(
+    name="${command_name}",
+    description="Explaining of the command to display on 'help'",
+    usage="Show users how your command is executed.",
+    function=${command_name}_function,
+)
