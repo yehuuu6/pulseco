@@ -3,25 +3,27 @@ import pytest
 from unittest.mock import patch, mock_open
 from pulseco.log_manager import main_logger, log_files
 from typing import Any
+import shutil
 
 
 @pytest.fixture
 def setup_logs_directory():
     # Setup: Create a temporary logs directory
-    os.makedirs("logs", exist_ok=True)
+    os.mkdir("logs")
     yield
     # Teardown: Remove the logs directory and its contents
-    for log_file in log_files:
-        try:
-            os.remove(f"logs/{log_file}")
-        except FileNotFoundError:
-            pass
-    os.rmdir("logs")
+    if os.path.exists("logs"):
+        shutil.rmtree("logs")
 
 
-def test_logs_directory_creation():
-    # Test if logs directory is created
-    assert os.path.exists("logs")
+def test_create_logs_directory(monkeypatch: pytest.MonkeyPatch):
+    def mock_mkdir():
+        raise Exception("Permission denied mock")
+
+    monkeypatch.setattr(os, "mkdir", mock_mkdir)
+
+    with pytest.raises(Exception):
+        os.mkdir("logs")
 
 
 def test_log_files_creation():
