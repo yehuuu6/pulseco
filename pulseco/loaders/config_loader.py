@@ -26,18 +26,17 @@ def use_default_config() -> ServerConfig:
     """
     Saves the default config to settings.json and returns it.
     """
-    if not os.path.exists("config"):
-        try:
-            os.mkdir("config")
-        except Exception as e:
-            printb(f"Failed to create config directory: {e}", log=True)
-            printb("Using default config from memory instead...", log=True)
-            return DEFAULT_CONFIG
-        else:
-            print("Config directory created successfully.")
+    try:
+        os.makedirs("app/config", exist_ok=True)
+    except Exception as e:
+        printb(f"Failed to create config directory: {e}", log=True)
+        printb("Using default config from memory instead...", log=True)
+        return DEFAULT_CONFIG
+    else:
+        print("Config directory created successfully.")
 
     printb("Using default config...", log=True)
-    with open("config/settings.json", "w") as f:
+    with open("app/config/settings.json", "w") as f:
         f.write(DEFAULT_CONFIG.model_dump_json(indent=4))
     return DEFAULT_CONFIG
 
@@ -48,7 +47,7 @@ def load_config() -> ServerConfig:
     """
     try:
         printb("Loading config...", log=True)
-        with open("config/settings.json", "r") as f:
+        with open("app/config/settings.json", "r") as f:
             config = ServerConfig.model_validate_json(f.read(), strict=True)
         printb("Config loaded successfully.", log=True)
     except Exception as e:

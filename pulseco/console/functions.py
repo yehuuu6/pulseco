@@ -26,8 +26,8 @@ def clear_logs_function(file_name: str) -> None:
     try:
         printb(f'Clearing "{file_name}"...', log=True)
         # Check if the file exists
-        open(f"logs/{file_name}", "r").close()
-        with open(f"logs/{file_name}", "w") as f:
+        open(f"app/logs/{file_name}", "r").close()
+        with open(f"app/logs/{file_name}", "w") as f:
             f.write("")
         printb(f"{file_name} cleared successfully.", log=True)
     except Exception as e:
@@ -54,14 +54,14 @@ def make_function(makeable: str, name: str) -> None:
             printb(f"Command already exists: {command_name}", log=True)
             return
 
-        template_path = Path("pulseco/templates/command_template.txt")
+        template_path = Path("pulseco/templates/cmd.template")
         with template_path.open("r") as f:
             template_file = f.read()
 
         template = Template(template_file)
         command_file = template.substitute(command_name=command_name)
 
-        command_path = Path(f"commands/{name}.py")
+        command_path = Path(f"app/commands/{name}.py")
         with command_path.open("w") as f:
             f.write(command_file)
 
