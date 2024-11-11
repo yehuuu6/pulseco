@@ -1,3 +1,3 @@
 """
-Provides the core functionality for the Pulse console app.
+Console package provides core functionality for pulse console app.
 """

@@ -1,3 +1,3 @@
 """
-Provides config or plugin loaders for the Pulseco application.
+Loaders package provides core functionality to load data from different sources into pulseco server app.
 """

@@ -1,3 +1,3 @@
 """
-Provides the core functionality for the Pulseco app.
+Pulseco library provides packages for pulse console app and pulseco server app.
 """
