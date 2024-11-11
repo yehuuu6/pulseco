@@ -4,7 +4,7 @@ Provides config loader and validation functionality for the pulseco app.
 
 from pulseco.utils import printb
 from pulseco.loaders.classes import ServerConfig
-from os import path, mkdir
+import os
 
 DEFAULT_CONFIG: ServerConfig = ServerConfig(
     host="127.0.0.1",
@@ -26,13 +26,15 @@ def use_default_config() -> ServerConfig:
     """
     Saves the default config to settings.json and returns it.
     """
-    if not path.exists("config"):
+    if not os.path.exists("config"):
         try:
-            mkdir("config")
+            os.mkdir("config")
         except Exception as e:
             printb(f"Failed to create config directory: {e}", log=True)
             printb("Using default config from memory instead...", log=True)
             return DEFAULT_CONFIG
+        else:
+            print("Config directory created successfully.")
 
     printb("Using default config...", log=True)
     with open("config/settings.json", "w") as f:
