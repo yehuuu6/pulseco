@@ -19,6 +19,9 @@ DEFAULT_CONFIG: ServerConfig = ServerConfig(
     render_muted_messages=False,
     render_executed_commands=False,
     lang="en",
+    dev={
+        "debug": False,
+    },
 )
 
 

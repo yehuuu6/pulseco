@@ -1,4 +1,6 @@
 from pydantic import BaseModel, PositiveInt
+from typing import Dict
+
 
 class ServerConfig(BaseModel):
     host: str
@@ -13,3 +15,4 @@ class ServerConfig(BaseModel):
     render_muted_messages: bool
     render_executed_commands: bool
     lang: str
+    dev: Dict[str, str | bool]
