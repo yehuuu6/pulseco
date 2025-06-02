@@ -1,0 +1,14 @@
+import socket as sck
+
+class User:
+    BANS_PATH = "config/bans.json"
+    MUTES_PATH = "config/mutes.json"
+    OPS_PATH = "config/ops.json"
+    ROLES_PATH = "config/roles.json"
+
+    def __init__(self, id: str, name: str, sock: sck.socket):
+        self.id = id
+        self.name = name
+
+        self.sock = sock
+        self.addr = sock.getpeername()

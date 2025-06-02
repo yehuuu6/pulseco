@@ -1,0 +1,17 @@
+from app.models.command import Command
+from app.utils.functions import printf  # Importing the printf function for console output
+# from app.server import server # Used to access to the server (room) singleton.
+
+class {{ $name.uppercase }}Command(Command):
+    def __init__(self):
+        super().__init__(name="{{ $name }}", description="{{ $description }}")
+    
+    def usage(self) -> str:
+        """
+        Return a string that describes how to use the command.
+        This method should be implemented by subclasses to provide usage instructions.
+        """
+        return f"Usage: You should give the command {self.name} with the following arguments: ..."
+
+    def run(self) -> None:
+        printf("Hello from command [cyan]{{ $name.uppercase }}[/]")
