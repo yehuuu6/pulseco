@@ -1,6 +1,6 @@
 from app.models.command import Command
 from app.utils.functions import printf  # Importing the printf function for console output
-# from app.server import server # Used to access to the server (room) singleton.
+# from app.server import room # Used to access to the server (room) singleton.
 
 class {{ $name.uppercase }}Command(Command):
     def __init__(self):

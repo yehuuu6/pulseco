@@ -33,7 +33,7 @@ user_name = generate_random_username()
 #PORT = int(input("Server Port: "))
 
 IP = "127.0.0.1"
-PORT = 7030
+PORT = 7035
 
 def handle_package(package: Package) -> None:
     if not package.is_valid_package():
@@ -46,7 +46,7 @@ def handle_package(package: Package) -> None:
     elif package.type == "message":
         printf(f"{package.content}")
 
-async def handle_admin_input() -> None:
+async def write() -> None:
     prompt_text = f"{user_name}@{COMPUTER}" + r"\~ "
     session: PromptSession[Any] = PromptSession(ANSI(prompt_text), erase_when_done=True)
 
@@ -94,7 +94,7 @@ def main() -> None:
     connect_to_room()
     try:
         asyncio.set_event_loop(input_loop)
-        input_loop.run_until_complete(handle_admin_input())
+        input_loop.run_until_complete(write())
     except KeyboardInterrupt:
         printf("[orange1]Server shutdown initiated by user.[/]")
     finally:

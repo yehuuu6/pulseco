@@ -21,8 +21,8 @@ class CommandLoaderSingleton:
             self._initialized = True
 
     def _get_config(self):
-        from app.server import server
-        return server.cfg_loader.config
+        from app.server import room
+        return room.cfg_loader.config
 
     def load_commands(self) -> None:
         config = self._get_config()

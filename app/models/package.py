@@ -29,7 +29,7 @@ def receive_all(sender: sck.socket) -> str:
     data_len = 0
     while True:
         try:
-            data = sender.recv(16)
+            data = sender.recv(4096)
             if not data:  # Client disconnected
                 raise sck.error("Client disconnected")
             

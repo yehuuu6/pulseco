@@ -15,7 +15,6 @@ class User:
 
         self.sock = sock
         self.addr = sock.getpeername()
-        self.is_banned = False
 
     def disconnect(self):
         self.sock.close()
@@ -25,6 +24,5 @@ class User:
             "id": self.id,
             "name": self.name,
             "addr": self.addr,
-            "is_banned": self.is_banned,
         }
         return json.dumps(data)
