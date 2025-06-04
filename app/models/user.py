@@ -1,3 +1,6 @@
+from typing import Any
+
+import json
 import socket as sck
 
 class User:
@@ -12,3 +15,16 @@ class User:
 
         self.sock = sock
         self.addr = sock.getpeername()
+        self.is_banned = False
+
+    def disconnect(self):
+        self.sock.close()
+
+    def get_json(self) -> str:
+        data: dict[str, Any] = {
+            "id": self.id,
+            "name": self.name,
+            "addr": self.addr,
+            "is_banned": self.is_banned,
+        }
+        return json.dumps(data)

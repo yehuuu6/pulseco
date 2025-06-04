@@ -1,12 +1,26 @@
 from io import StringIO
 from rich.console import Console
-# from rich.markup import escape
+from pydantic import StrictStr
+from typing import Any
 from prompt_toolkit import ANSI, print_formatted_text
 
 import time
 
 output_buffer = StringIO()
 console = Console(file=output_buffer, color_system="truecolor")
+
+def set_window_title(titleObj: dict[StrictStr, Any], online_users_count: int) -> None:
+    # Set the console title
+    import sys
+    title: str = f"\033]0;{titleObj['name']} - {online_users_count}/{titleObj['max_users']} online\007"
+    sys.stdout.write(title)
+    sys.stdout.flush()
+
+def is_space(s: str) -> bool:
+    """
+    Checks if the given string is empty or contains only whitespace characters.
+    """
+    return not s or s.isspace()
 
 def clear_console() -> None:
     """

@@ -1,5 +1,12 @@
 from app.loaders.config_loader import ConfigLoaderSingleton
 from app.loaders.command_loader import CommandLoaderSingleton
+from app.models.package import Package, send_package
+from app.utils.functions import printf
+from typing import List
+from app.models.user import User
+from rich.markup import escape
+
+import socket as sck
 import asyncio
 
 class RoomSingleton:
@@ -12,7 +19,33 @@ class RoomSingleton:
 
     def __init__(self):
         if not hasattr(self, "_initialized"):
+            self.sock = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
+            self.users_list: List[User] = []
             self.cfg_loader: ConfigLoaderSingleton = ConfigLoaderSingleton()
             self.cmd_loader: CommandLoaderSingleton = CommandLoaderSingleton()
             self.input_loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
             self._initialized = True
+
+    def get_user_by_socket(self, sock: sck.socket) -> User | None:
+        for user in self.users_list:
+            if user.sock == sock:
+                return user
+        return None
+    
+    def broadcast(self, message: str, exclude: User | None = None, render_on_console: bool = True, source: User | None = None) -> None:
+        # REFACTOR THIS IT HAS PROBLEMS
+        if source:
+            final_message = f"{escape('[')}{source.name}{escape(']')}: {escape(message)}"
+        else:
+            final_message = f"{escape('[')}{escape('Server')}{escape(']')}: {escape(message)}"
+        package = Package(type="message", content=final_message)
+        if render_on_console:
+                printf(final_message)
+        for user in self.users_list:
+            if user != exclude:
+                try:
+                    send_package(package, user.sock)
+                except Exception as e:
+                    print(f"Error sending message to {user.name}: {e}")
+                    user.disconnect()
+                    self.users_list.remove(user)
