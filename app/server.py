@@ -5,9 +5,9 @@ from pydantic import StrictStr
 from app.utils.functions import printf, is_space, set_window_title
 from app.models.package import Package, send_package, get_package
 from app.models.user import User
-from sys import exit
 # from rich.markup import escape
 
+import sys
 import threading
 import socket as sck
 import json
@@ -55,7 +55,7 @@ async def handle_admin_input() -> None:
                 continue
         except (EOFError, KeyboardInterrupt):
             room.sock.close()
-            exit(0)
+            sys.exit(0)
 
         input_list = cin.strip().split(' ')
         command: str = input_list[0]
@@ -218,4 +218,4 @@ def run_server() -> None:
     finally:
         room.input_loop.close()
         room.sock.close()
-        exit(0)
+        sys.exit(0)

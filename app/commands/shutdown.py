@@ -1,6 +1,7 @@
 from app.models.command import Command
 from app.server import room # Used to access to the server (room) singleton.
-from sys import exit
+
+import sys
 
 class ShutdownCommand(Command):
     def __init__(self):
@@ -17,4 +18,4 @@ class ShutdownCommand(Command):
         for user in room.users_list:
             user.sock.close()
         room.sock.close()  # Close the server socket to stop accepting new connections.
-        exit(0)
+        sys.exit(0)
