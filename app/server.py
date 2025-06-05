@@ -5,6 +5,7 @@ from pydantic import StrictStr
 from app.utils.functions import printf, is_space, set_window_title
 from app.models.package import Package, send_package, get_package
 from app.models.user import User
+from sys import exit
 # from rich.markup import escape
 
 import threading

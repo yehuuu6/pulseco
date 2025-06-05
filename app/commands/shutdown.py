@@ -1,5 +1,6 @@
 from app.models.command import Command
 from app.server import room # Used to access to the server (room) singleton.
+from sys import exit
 
 class ShutdownCommand(Command):
     def __init__(self):
