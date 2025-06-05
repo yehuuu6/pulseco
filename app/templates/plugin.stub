@@ -19,6 +19,8 @@ class {{ $name.uppercase }}Plugin(Plugin):
         Called when the plugin is loaded.
         """
         super().on_load()
+        from app.server import room
+        self.room = room
 
     def on_package_received(self, package: Package) -> None:
         """

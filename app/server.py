@@ -201,8 +201,6 @@ def connection_handler() -> None:
         except sck.error as e:
             print(f"[red]Error:[/red] Failed to accept connection: {e}")
         except KeyboardInterrupt:
-            room.cmd_loader.get_command_by_name("shutdown").run()  # type: ignore
-            room.sock.close()
             break
 
 def run_server() -> None:
@@ -218,6 +216,5 @@ def run_server() -> None:
         printf("[orange1]Server shutdown initiated by user.[/]")
     finally:
         room.input_loop.close()
-        printf("Server has been shut down.")
         room.sock.close()
         exit(0)

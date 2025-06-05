@@ -30,8 +30,6 @@ class Plugin(ABC):
 
     def on_load(self) -> None:
         """Called when the plugin is loaded."""
-        from app.server import room
-        self.room = room
         printf(f"Plugin {self.prefix} loaded successfully.")
 
     def on_package_received(self, package: Package) -> None:

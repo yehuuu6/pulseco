@@ -1,5 +1,4 @@
 from app.models.command import Command
-from app.utils.functions import printf
 from app.server import room # Used to access to the server (room) singleton.
 
 class ShutdownCommand(Command):
@@ -13,6 +12,8 @@ class ShutdownCommand(Command):
         msg = " ".join(msg_parts)
         if msg.strip() == "":
             msg = "No reason provided."
-        printf(f"Shutting down server: {msg}")
+        room.broadcast(message=f"[orange1]Server is shutting down:[/] {msg}")
+        for user in room.users_list:
+            user.sock.close()
         room.sock.close()  # Close the server socket to stop accepting new connections.
         exit(0)
