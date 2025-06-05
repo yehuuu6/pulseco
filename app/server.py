@@ -152,9 +152,9 @@ def connection_handler() -> None:
             break
 
 def run_server() -> None:
-    printf(f"[green]Starting server on {cfg.ip}:{cfg.port}...[/]")
-    room.sock.listen(10)  # Start listening for incoming connections
-    printf(f"[green]Server is running![/]")
+    printf(f"Starting server on [green3]{cfg.ip}:{cfg.port}[/]")
+    room.sock.listen(10)
+    printf(f"Server is [green3]running[/]!")
     connection_handler_thread = threading.Thread(target=connection_handler, daemon=True)
     connection_handler_thread.start()
     try:
