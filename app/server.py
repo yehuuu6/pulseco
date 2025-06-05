@@ -63,6 +63,11 @@ async def handle_admin_input() -> None:
         if room.cmd_loader.get_command_by_name(command) is not None:
             cmd = room.cmd_loader.get_command_by_name(command)
             try:
+                # Trigger command event for plugins (create a dummy admin user)
+                if cfg.enable_plugins:
+                    admin_user = User(id="admin", name="console", sock=room.sock)
+                    room.plugin_loader.trigger_command_received(command, args, admin_user)
+                
                 cmd.run(*args)  # type: ignore
             except Exception as e:
                 printf(f"[red]Error executing command '{command}': {e}[/]")
@@ -73,6 +78,10 @@ def handle_package(package: Package, sender: sck.socket) -> None:
     """
     Handles received packages.
     """
+    # Trigger plugin event
+    if cfg.enable_plugins:
+        room.plugin_loader.trigger_package_received(package)
+    
     if not package.is_valid_package():
         printf(f"[red]Error:[/red] Invalid package received, something is wrong!")
         _package = Package(type = "message", content = "You have send an invalid package. Connection will be closed.")
@@ -91,6 +100,10 @@ def handle_package(package: Package, sender: sck.socket) -> None:
         refresh_title()
 
         room.broadcast(message=f"[cyan]{user.name}[/] has joined the room.")
+        
+        # Trigger user joined event
+        if cfg.enable_plugins:
+            room.plugin_loader.trigger_user_joined(user)
 
     elif package.type == "message":
         user = room.get_user_by_socket(sock = sender)
@@ -99,6 +112,35 @@ def handle_package(package: Package, sender: sck.socket) -> None:
             return
     
         room.broadcast(user=user, message=package.content)
+
+    elif package.type == "command":
+        user = room.get_user_by_socket(sock = sender)
+        if user is None:
+            return
+        
+        # Parse command and arguments
+        command_parts = package.content.strip().split()
+        if not command_parts:
+            return
+        
+        command = command_parts[0]
+        args: List[str] = command_parts[1:] if len(command_parts) > 1 else []
+        
+        # Trigger command event for plugins
+        if cfg.enable_plugins:
+            room.plugin_loader.trigger_command_received(command, args, user)
+        
+        # Check if command exists and execute it
+        cmd = room.cmd_loader.get_command_by_name(command)
+        if cmd is not None:
+            try:
+                cmd.run(*args)
+            except Exception as e:
+                printf(f"[red]Error executing command '{command}' from user {user.name}: {e}[/]")
+        else:
+            # Send error message back to user
+            error_package = Package(type="message", content=f"[red]Unknown command: {command}[/]")
+            send_package(error_package, sender)
 
 def client_handler(client: sck.socket, address: tuple[str, int]) -> None:
     try:
@@ -113,6 +155,10 @@ def client_handler(client: sck.socket, address: tuple[str, int]) -> None:
                     room.users_list.remove(user)
                     room.broadcast(message=f"[cyan]{user.name}[/] has left the room.")
                     refresh_title()
+                    
+                    # Trigger user left event
+                    if cfg.enable_plugins:
+                        room.plugin_loader.trigger_user_left(user)
                 break
     except sck.error:
         # Handle socket errors (disconnections, etc.)
@@ -122,6 +168,10 @@ def client_handler(client: sck.socket, address: tuple[str, int]) -> None:
             room.users_list.remove(user)
             room.broadcast(message=f"[cyan]{user.name}[/] has left the room unexpectedly.")
             refresh_title()
+            
+            # Trigger user left event
+            if cfg.enable_plugins:
+                room.plugin_loader.trigger_user_left(user)
     finally:
         try:
             client.close()

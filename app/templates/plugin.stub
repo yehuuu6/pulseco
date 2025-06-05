@@ -18,7 +18,7 @@ class {{ $name.uppercase }}Plugin(Plugin):
         """
         Called when the plugin is loaded.
         """
-        printf(f"Plugin {self.prefix} loaded successfully.")
+        super().on_load()
 
     def on_package_received(self, package: Package) -> None:
         """
