@@ -38,7 +38,7 @@ class Plugin(ABC):
         """Called when a package is received."""
         pass
 
-    def on_command_received(self, command: str, args: List[str], executer: User) -> None:
+    def on_command_received(self, command: str, args: List[str], executer: User | None = None) -> None:
         """Called when a command is received."""
         pass
 

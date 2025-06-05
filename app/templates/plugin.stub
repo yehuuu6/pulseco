@@ -26,11 +26,16 @@ class {{ $name.uppercase }}Plugin(Plugin):
         """
         printf(f"{self.prefix}: received package: {package.type}")
 
-    def on_command_received(self, command: str, args: List[str], executer: User) -> None:
+    def on_command_received(self, command: str, args: List[str], executer: User | None = None) -> None:
         """
         Called when a command is received.
         """
-        printf(f"{self.prefix}: Received command: <{command}> with args: <{args}> from <{executer.name}>")
+        if executer is None:
+            # If the executer is none, it was sent by the server console.
+            name = "Server Console"
+        else:
+            name = executer.name
+        printf(f"{self.prefix}: Received command: <{command}> with args: <{args}> from <{name}>")
 
     def on_user_joined(self, user: User) -> None:
         """

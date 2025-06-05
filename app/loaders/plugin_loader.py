@@ -98,11 +98,11 @@ class PluginLoaderSingleton:
             except Exception as e:
                 printf(f"[red]Error in plugin {plugin.name} on_package_received: {e}[/]")
 
-    def trigger_command_received(self, command: str, args: List[str], executer: User) -> None:
+    def trigger_command_received(self, command: str, args: List[str], executer: User | None = None) -> None:
         """Trigger command received event for registered plugins."""
         for plugin in self._command_plugins:
             try:
-                plugin.on_command_received(command, args, executer)
+                plugin.on_command_received(command, args)
             except Exception as e:
                 printf(f"[red]Error in plugin {plugin.name} on_command_received: {e}[/]")
 

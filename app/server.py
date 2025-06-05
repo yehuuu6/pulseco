@@ -63,10 +63,9 @@ async def handle_admin_input() -> None:
         if room.cmd_loader.get_command_by_name(command) is not None:
             cmd = room.cmd_loader.get_command_by_name(command)
             try:
-                # Trigger command event for plugins (create a dummy admin user)
+                # Trigger command event for plugins
                 if cfg.enable_plugins:
-                    admin_user = User(id="admin", name="console", sock=room.sock)
-                    room.plugin_loader.trigger_command_received(command, args, admin_user)
+                    room.plugin_loader.trigger_command_received(command, args)
                 
                 cmd.run(*args)  # type: ignore
             except Exception as e:
