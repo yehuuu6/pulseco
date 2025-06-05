@@ -1,5 +1,6 @@
 from app.loaders.config_loader import ConfigLoaderSingleton
 from app.loaders.command_loader import CommandLoaderSingleton
+from app.loaders.plugin_loader import PluginLoaderSingleton
 from app.models.package import Package, send_package
 from app.utils.functions import printf
 from typing import List
@@ -23,6 +24,7 @@ class RoomSingleton:
             self.users_list: List[User] = []
             self.cfg_loader: ConfigLoaderSingleton = ConfigLoaderSingleton()
             self.cmd_loader: CommandLoaderSingleton = CommandLoaderSingleton()
+            self.plugin_loader: PluginLoaderSingleton = PluginLoaderSingleton()
             self.input_loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
             self._initialized = True
 

@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field, IPvAnyAddress, StrictInt, StrictBool, StrictStr
 from typing import Optional
 from ipaddress import IPv4Address
-from app.utils.functions import printf  # Importing the printf function for console output
 
 import os
 
@@ -60,7 +59,6 @@ class ConfigLoaderSingleton:
         # If the json does not exist, create it with the default configuration
         if not os.path.exists(CONFIG_PATH):
             with open(CONFIG_PATH, "w") as f:
-                printf(f"Creating default server configuration file at {CONFIG_PATH}")
                 f.write(DEFAULT_CONFIG.model_dump_json(indent=4))
 
         BANS_PATH = "config/bans.json"
@@ -76,6 +74,5 @@ class ConfigLoaderSingleton:
         
         if os.path.exists(CONFIG_PATH):
             with open(CONFIG_PATH, "r") as f:
-                printf(f"Loading server configuration from {CONFIG_PATH}")
                 loaded_config = ServerConfig.model_validate_json(f.read())
                 self.config = loaded_config

@@ -22,6 +22,11 @@ room.users_list = []  # Initialize the users list
 
 cfg = room.cfg_loader.config  # Get the configuration object
 
+if cfg.enable_plugins:
+    room.plugin_loader.load_plugins()  # Load the plugins
+else:
+    printf("[orange1]Warning:[/] Plugins are disabled in the configuration. No plugins will be loaded.")
+
 if cfg.debug:
     printf("[orange1]Warning:[/] Debug mode is enabled. This is not recommended for production use.")
 

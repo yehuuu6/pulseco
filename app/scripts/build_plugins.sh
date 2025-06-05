@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Run this script in your terminal to compile command modules with Nuitka.
+# Run this script in your terminal to compile plugin modules with Nuitka.
 # Ensure you have installed Nuitka and its dependencies.
-# Usage: You can either run this script directly or use the Pulse CLI tool by executing python pulse.py build:commands
+# Usage: You can either run this script directly or use the Pulse CLI tool by executing python pulse.py build:plugins
 
-SRC_DIR="app/commands"
-BUILD_DIR="build/commands"
+SRC_DIR="app/plugins"
+BUILD_DIR="build/plugins"
 
 mkdir -p "$BUILD_DIR"
 
